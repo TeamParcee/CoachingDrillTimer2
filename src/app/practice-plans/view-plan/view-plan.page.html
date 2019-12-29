@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/practice-plans"></ion-back-button>
+    </ion-buttons>
+    <ion-title>View Practice</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="deletePlan()" color="danger">Delete</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="plan">
+    <ion-list-header>Practice Date & Time</ion-list-header>
+    <ion-item>
+      <ion-label>
+        {{ plan.date + ' ' + plan.startTime }}
+      </ion-label>
+
+      <ion-button color="dark" fill="clear" size="small">
+        <ion-note (click)="editDateTime($event)" slot="end">edit </ion-note>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>Activities
+    </ion-list-header>
+    <p *ngIf="activities && activities.length == 0" class="ion-text-center">This practice has no activities <br>
+      <ion-button fill="clear" size="small" (click)="addActivity()">Add One</ion-button>
+    </p>
+    <ion-reorder-group (ionItemReorder)="reorderActivities($event)" disabled="false">
+
+      <ion-item *ngFor="let activity of activities">
+        <ion-label (click)="editActivity(activity)"> {{ activity.name }}
+          <p>{{ activity.startTime }} - {{activity.duration }} minutes</p>
+        </ion-label>
+        <ion-buttons>
+          <ion-button>
+            <ion-reorder slot="end"></ion-reorder>
+          </ion-button>
+        </ion-buttons>
+
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>
+          <p>End Time {{ planEndTime }} - Duration: {{ planDuration }} mintues</p>
+        </ion-label>
+      </ion-item>
+    </ion-reorder-group>
+    <ion-button *ngIf="activities && activities.length > 0" (click)="addActivity()" fill="clear" class="ion-margin-top">
+      Add</ion-button>
+  </ion-list>
+
+</ion-content>

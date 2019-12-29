@@ -8,11 +8,46 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import * as firebase from 'firebase/app';
+import 'firebase/analytics';
+import { FormsModule } from '@angular/forms';
+import { IonicStorageModule } from '@ionic/storage';
+import { ChangeDatetimeComponent } from './practice-plans/view-plan/change-datetime/change-datetime.component';
+import { AddActivityComponent } from './practice-plans/view-plan/add-activity/add-activity.component';
+import { EditActivityComponent } from './practice-plans/view-plan/edit-activity/edit-activity.component';
+import { ViewNotesPage } from './drill-timer/view-notes/view-notes.page';
+var firebaseConfig = {
+  apiKey: "AIzaSyA4u44PggAxUKQ0uYqAUDA30H2Vu4qc4FM",
+  authDomain: "coachingdrilltimer-parcee.firebaseapp.com",
+  databaseURL: "https://coachingdrilltimer-parcee.firebaseio.com",
+  projectId: "coachingdrilltimer-parcee",
+  storageBucket: "coachingdrilltimer-parcee.appspot.com",
+  messagingSenderId: "1004076950227",
+  appId: "1:1004076950227:web:3c9166be8b6853c0fb6a26",
+  measurementId: "G-9EVH7Z8XYS"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  declarations: [
+    AppComponent,
+    ChangeDatetimeComponent,
+    EditActivityComponent,
+    ViewNotesPage,
+    AddActivityComponent,],
+  entryComponents: [
+    ChangeDatetimeComponent,
+    ViewNotesPage,
+    EditActivityComponent,
+    AddActivityComponent],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
+    FormsModule,
+    AppRoutingModule],
   providers: [
     StatusBar,
     SplashScreen,
@@ -20,4 +55,4 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

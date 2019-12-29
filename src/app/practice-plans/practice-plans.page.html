@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Practice Plans</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/practice-plans/add-plan">Add Plan</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="upcomingPlans && upcomingPlans.length > 0">
+    <ion-list-header>Upcoming Practices</ion-list-header>
+    <ion-item detail [routerLink]="['/practice-plans/view-plan', plan.id ]" *ngFor="let plan of upcomingPlans">
+      <ion-label>
+        {{ plan.date + " " + plan.startTime}}
+        <p>Activities: {{ plan.activitiesCount }} </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="pastPlans && pastPlans.length > 0">
+    <ion-list-header>Past Practices</ion-list-header>
+    <ion-item detail [routerLink]="['/practice-plans/view-plan', plan.id ]" *ngFor="let plan of pastPlans">
+      <ion-label>
+        {{ plan.date + " " + plan.startTime}}
+        <p>Activities: {{ plan.activitiesCount }} </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

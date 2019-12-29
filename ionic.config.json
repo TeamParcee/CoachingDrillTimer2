@@ -1,5 +1,7 @@
 {
   "name": "CoachingDrillTimer",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -1,0 +1,19 @@
+<ion-content class="ion-padding">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Practice Date</ion-label>
+        <ion-datetime pickerFormat="MMM  DD YYYY" displayFormat="MMM DD YYYY" min="2019" max="2020"
+          [(ngModel)]="date">
+        </ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Practice Start Time</ion-label>
+        <ion-datetime pickerFormat="h:mm A" displayFormat="h:mm A" [(ngModel)]="startTime">
+        </ion-datetime>
+      </ion-item>
+
+    </ion-list>
+    <ion-button expand="full" (click)="save(form)" >Save</ion-button>
+
+</ion-content>

@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Drill Timer</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/auth/settings">Settings</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <h5 *ngIf="plan && !activities || activities?.length == 0" class="ion-text-center">You dont have any actives for this
+    practice<br>
+    <ion-button fill="clear" [routerLink]="['/practice-plans/view-plan/', plan.id]">Add One</ion-button>
+  </h5>
+
+  <h5 *ngIf="!plan" class="ion-text-center">You dont have any future practices<br>
+    <ion-button fill="clear" routerLink="/practice-plans/add-plan">Add One</ion-button>
+  </h5>
+
+  <div *ngIf="activities && activities.length > 0">
+    <h5>Next Practice</h5>
+    <ion-card class="ion-no-padding">
+      <ion-card-header>
+        <ion-card-subtitle> {{ currentActivity?.name }}</ion-card-subtitle>
+        <ion-card-title>
+          <ion-text style="font-size: 30px;">{{ timer }} </ion-text>
+        </ion-card-title>
+        <ion-card-content class="ion-no-padding">
+          Next Activity: {{ nextActivity?.name }}<br>
+          Start Time: {{ nextActivity?.startTime}}
+        </ion-card-content>
+      </ion-card-header>
+    </ion-card>
+    <ion-list>
+      <ion-item lines="none">
+        <ion-label>
+          <p>End Time {{ planEndTime }} - Duration: {{ planDuration }} mintues</p>
+        </ion-label>
+      </ion-item>
+      <ion-item (click)="viewNotes(activity)" *ngFor="let activity of activities">
+        <ion-label>
+          <h2> {{ activity.name }}</h2>
+          <p>{{ activity.startTime}} - {{ activity.duration }} minutes</p>
+        </ion-label>
+        <ion-note slot="end">Notes</ion-note>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>
