@@ -32,7 +32,7 @@ export class DrillTimerPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewWillEnter() {
+  ionViewWillEnter() {  
     this.getNextPlan();
     console.log("getting current activity");
     this.interval = setInterval(() => {
@@ -47,6 +47,7 @@ export class DrillTimerPage implements OnInit {
     clearInterval(this.interval)
   }
   getNextPlan() {
+    
     let uid = localStorage.getItem('uid');
     let now = new Date().getTime();
     firebase.firestore().collection("users/" + uid + "/plans")
@@ -56,6 +57,7 @@ export class DrillTimerPage implements OnInit {
       .onSnapshot((plansSnap) => {
         if (plansSnap.empty) {
           this.activities = null;
+          return;
         }
         if (!plansSnap.empty) {
           this.plan = plansSnap.docs[0].data();
@@ -64,12 +66,14 @@ export class DrillTimerPage implements OnInit {
             let activities: Activity[] = [];
             if (activitiesSnap.empty) {
               this.activities = [];
+              return;
             }
+            let planDuration = 0;
             activitiesSnap.forEach((activity) => {
               let a = { ...activity.data() };
               a.date = this.plan.date;
               activities.push(a);
-              this.planDuration = (a.duration * 1) + this.planDuration;
+              planDuration = (a.duration * 1) + planDuration;
             })
             let preActivity: Activity = {
               name: "Pre Practice",
@@ -81,6 +85,7 @@ export class DrillTimerPage implements OnInit {
             activities.splice(0, 0, preActivity);
             this.activities = activities;
             this.planEndTime = this.plan.endTime;
+            this.planDuration = planDuration;
           })
         }
       })

@@ -16,6 +16,11 @@ import { ChangeDatetimeComponent } from './practice-plans/view-plan/change-datet
 import { AddActivityComponent } from './practice-plans/view-plan/add-activity/add-activity.component';
 import { EditActivityComponent } from './practice-plans/view-plan/edit-activity/edit-activity.component';
 import { ViewNotesPage } from './drill-timer/view-notes/view-notes.page';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { Vibration } from '@ionic-native/vibration/ngx';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { Media, MediaObject } from '@ionic-native/media/ngx';
+
 var firebaseConfig = {
   apiKey: "AIzaSyA4u44PggAxUKQ0uYqAUDA30H2Vu4qc4FM",
   authDomain: "coachingdrilltimer-parcee.firebaseapp.com",
@@ -50,6 +55,10 @@ firebase.analytics();
     AppRoutingModule],
   providers: [
     StatusBar,
+    LocalNotifications,
+    Vibration,
+    BackgroundMode,
+    Media,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

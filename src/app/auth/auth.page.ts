@@ -12,5 +12,9 @@ export class AuthPage implements OnInit {
   ngOnInit() {
   }
 
+
+  ionViewWillEnter(){
+    localStorage.setItem('seenIntro', 'true');
+  }
  
 }

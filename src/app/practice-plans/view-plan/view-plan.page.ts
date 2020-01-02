@@ -133,6 +133,6 @@ export class ViewPlanPage implements OnInit {
 
   saveEndtime() {
     let uid = localStorage.getItem('uid');
-    this.firestoreService.updateDocument("users/" + uid + "/plans/" + this.plan.id, { endTimestamp: new Date(this.plan.date + " " + this.planEndTime).getTime() })
+    this.firestoreService.updateDocument("users/" + uid + "/plans/" + this.plan.id, { endTimestamp: new Date(this.plan.date + " " + this.planEndTime).getTime(), endTime: this.planEndTime })
   }
 }

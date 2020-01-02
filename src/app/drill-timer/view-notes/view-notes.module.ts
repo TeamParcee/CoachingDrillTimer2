@@ -15,6 +15,8 @@ import { ViewNotesPage } from './view-notes.page';
     IonicModule,
     ViewNotesPageRoutingModule
   ],
-  declarations: [ViewNotesPage]
+  declarations: [
+    
+  ]
 })
 export class ViewNotesPageModule {}

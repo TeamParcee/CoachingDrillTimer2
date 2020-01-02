@@ -24,8 +24,15 @@ export class AuthGuard implements CanActivate {
                 if (user) {
                     return resolve(true);
                 } else {
-                    this.navCtrl.navigateRoot("/login")
-                    return resolve(false)
+                    let seenIntro = localStorage.getItem('seenIntro');
+                    if (seenIntro == 'true') {
+                        console.log(seenIntro, 'seenIntro');
+                        this.navCtrl.navigateRoot("/login")
+                        return resolve(false)
+                    } else {
+                        this.navCtrl.navigateRoot("/auth")
+                    }
+
                 }
             })
         })

@@ -1,34 +1,39 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="close()"> 
-        <ion-icon name="close"></ion-icon>
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Edit Activity</ion-title>
     <ion-buttons slot="end">
       <ion-button color="danger" (click)="delete()">Delete</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <form #activityForm="ngForm">
-    <ion-list>
-      <ion-item>
-        <ion-label position="stacked">Name</ion-label>
+  <form>
+    <h3>Name</h3>
+    <ion-item-group>
+      <ion-item lines="none">
         <ion-input #name="ngModel" [(ngModel)]="editActivity.name" required name="name"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Duration (in minutes)</ion-label>
-        <ion-input #duration="ngModel" [(ngModel)]="editActivity.duration" required name="duration"></ion-input>
+    </ion-item-group>
+
+    <ion-item-group>
+      <h3>Duration (in minutes)</h3>
+      <ion-item lines="none">
+        <ion-input #duration="ngModel" type="number" inputmode="number" [(ngModel)]="editActivity.duration" required name="duration"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Notes</ion-label>
-        <ion-textarea rows="12"  #notes="ngModel" [(ngModel)]="editActivity.notes"  name="notes"></ion-textarea>
+    </ion-item-group>
+
+    <ion-item-group>
+      <h3>Notes</h3>
+      <ion-item lines="none"> 
+        <ion-textarea autoGrow="true" rows="6" #notes="ngModel" [(ngModel)]="editActivity.notes" name="notes"></ion-textarea>
       </ion-item>
-    </ion-list>
+    </ion-item-group>
   </form>
-  <ion-button [disabled]="activityForm.invalid" expand="full" (click)="save(activityForm)">Save</ion-button>
+  <ion-button expand="block" (click)="save()">Save</ion-button>
 
 
 </ion-content>

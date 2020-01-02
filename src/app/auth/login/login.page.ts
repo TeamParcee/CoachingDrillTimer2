@@ -27,6 +27,7 @@ export class LoginPage implements OnInit {
   }
 
   
+  
   loginForm: FormGroup;
 
   login() {
@@ -35,5 +36,9 @@ export class LoginPage implements OnInit {
       localStorage.setItem('uid', user.uid);
       this.navCtrl.navigateForward("/tabs/drill-timer")
     })
+  }
+
+  passwordReset(){
+    this.helper.okAlert("Password Reset", "To have your password reset please email team@parcee.com")
   }
 }
