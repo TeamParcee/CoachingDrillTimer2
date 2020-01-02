@@ -62,22 +62,22 @@ export class TimerService {
     }
 
 
-    createNotification(activity) {
-        let time = new Date(activity.date + " " + activity.endTime).getTime();
+    // createNotification(activity) {
+    //     let time = new Date(activity.date + " " + activity.endTime).getTime();
 
-        this.localNotifications.schedule({
-            text: activity.name,
-            vibrate: true,
-            trigger: { at: new Date(time) },
-            actions: [{
-                id: "OK", title: "OK",
-            }]
-        })
+    //     this.localNotifications.schedule({
+    //         text: activity.name,
+    //         vibrate: true,
+    //         trigger: { at: new Date(time) },
+    //         actions: [{
+    //             id: "OK", title: "OK",
+    //         }]
+    //     })
 
-        this.localNotifications.on('OK', () => {
-            console.log("hey that worked")
-        })
-    }
+    //     this.localNotifications.on('OK', () => {
+    //         console.log("hey that worked")
+    //     })
+    // }
 
     activityCompleted(activity) {
         this.stopVibrating();
