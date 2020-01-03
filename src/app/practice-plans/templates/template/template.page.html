@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/practice-plan/template"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Template</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+
+
+  <div>
+    <h3>Activities</h3>
+    <ion-listlines="none">
+      <p *ngIf="activities && activities.length == 0" class="ion-text-center">This template has no activities <br>
+        <ion-button (click)="addActivity()">Add One</ion-button>
+      </p>
+      <ion-reorder-group (ionItemReorder)="reorderActivities($event)" disabled="false">
+
+        <ion-item *ngFor="let activity of activities">
+          <ion-label (click)="editActivity(activity)"> {{ activity.name }}
+            <p>{{ activity.duration }} minutes</p>
+          </ion-label>
+          <ion-buttons>
+            <ion-button color="dark">
+              <ion-reorder slot="end"></ion-reorder>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ion-reorder-group>
+    </ion-listlines="none">
+    <h5 style="text-align: center;"> Duration: {{ planDuration }} mintues</h5>
+
+    <ion-button *ngIf="activities && activities.length > 0" (click)="addActivity()" expand="block"
+      class="ion-margin-top">
+      Add Activity</ion-button>
+    <ion-button expand="block" color="danger" (click)="deletePlan()">Delete Template</ion-button>
+
+  </div>
+
+</ion-content>

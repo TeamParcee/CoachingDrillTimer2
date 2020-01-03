@@ -40,7 +40,7 @@ export class ViewPlanPage implements OnInit {
 
   ionViewWillLeave() {
     this.saveActivities();
-    this.saveEndtime(); 
+    this.saveEndtime();
   }
   getId() {
     this.route.paramMap.subscribe((paramMap) => {
@@ -59,7 +59,7 @@ export class ViewPlanPage implements OnInit {
           activities.push(a);
         })
         this.activities = activities;
-        if(this.activities.length == 0){
+        if (this.activities.length == 0) {
           this.planEndTime = this.plan.endTime;
         }
         this.updateStartTime();
@@ -134,5 +134,24 @@ export class ViewPlanPage implements OnInit {
   saveEndtime() {
     let uid = localStorage.getItem('uid');
     this.firestoreService.updateDocument("users/" + uid + "/plans/" + this.plan.id, { endTimestamp: new Date(this.plan.date + " " + this.planEndTime).getTime(), endTime: this.planEndTime })
+  }
+
+  createTemplate() {
+    let alertInput = [{
+      name: 'name',
+      placeholder: "Name of your practice template"
+    }]
+    this.helper.inputAlert("Create Template", "Enter a name for your template", alertInput)
+      .then((result: any) => {
+        let p: any = { ...this.plan };
+        p.name = result.name;
+        let uid = localStorage.getItem('uid');
+        this.firestoreService.addDocument('users/' + uid + '/templates', p).then((planId) => {
+          this.activities.forEach((activity) => {
+            this.firestoreService.addDocument('users/' + uid + '/templates/' + planId + "/activities", { ...activity })
+          })
+          this.helper.showToast("Template Created")
+        })
+      })
   }
 }

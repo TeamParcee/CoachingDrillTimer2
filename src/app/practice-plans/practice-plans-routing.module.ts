@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'view-plan',
     loadChildren: () => import('./view-plan/view-plan.module').then( m => m.ViewPlanPageModule)
+  },
+  {
+    path: 'templates',
+    loadChildren: () => import('./templates/templates.module').then( m => m.TemplatesPageModule)
   }
 ];
 

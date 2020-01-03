@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/practice-plans"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Practice Templates</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="templates?.length == 0" style="text-align: center">
+    <h3>You have not created any templates yet. </h3>
+        <h5>Go to your practice plan to save it as a template</h5>
+  </div>
+
+
+  <div *ngIf="templates?.length > 0">
+    <h3>Templates</h3>
+    <ion-list lines="none">
+      <ion-item detail [routerLink]="['/practice-plans/templates/template', plan.id ]" *ngFor="let plan of templates ;">
+        <ion-label>
+          {{ plan.name }}
+          <p>Activities: {{ plan.activitiesCount }} </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>
