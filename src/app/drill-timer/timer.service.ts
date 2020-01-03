@@ -28,7 +28,7 @@ export class TimerService {
     currentActivity;
     nextActivity;
     interval;
-    alarmFile:MediaObject;
+    alarmFile: MediaObject;
 
     getCurrentActivity(activities: Activity[]) {
         let index = 0;
@@ -56,7 +56,9 @@ export class TimerService {
             index++;
             if (!this.completedActivities.includes(activity.id, 0)) {
                 this.completedActivities.push(activity.id);
-                this.activityCompleted(activities[index]);
+                if (index != activities.length) {
+                    this.activityCompleted(activities[index]);
+                }
             }
         }
     }

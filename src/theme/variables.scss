@@ -76,7 +76,7 @@
   --ion-color-light-tint: #f5f6f9;
 
 
-  --ion-toolbar-border-color: #ffffff;
-  // --ion-toolbar-background: #f5f5f5;
+  --ion-toolbar-background: var(--ion-color-primary);
+  --ion-toolbar-color: #ffffff;
 
 }

@@ -3,9 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/practice-plans"></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button (click)="deletePlan()" color="danger">Delete</ion-button>
-    </ion-buttons>
+    <ion-title>Practice</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -46,11 +44,13 @@
         </ion-item>
       </ion-reorder-group>
     </ion-list>
-    <h5>End Time {{ planEndTime }} - Duration: {{ planDuration }} mintues</h5>
+    <h5 style="text-align: center;">End Time {{ planEndTime }} - Duration: {{ planDuration }} mintues</h5>
 
     <ion-button *ngIf="activities && activities.length > 0" (click)="addActivity()" expand="block"
       class="ion-margin-top">
-      Add</ion-button>
+      Add Activity</ion-button>
+      <ion-button expand="block" color="danger" (click)="deletePlan()">Delete Practice</ion-button>
+
   </div>
 
 </ion-content>

@@ -42,7 +42,8 @@ ion-tab-bar{
 }
 
 ion-content{
-    --background: #ffffff;
+    --background: #3881ff10;
+
 }
 
 ion-card, ion-card-header, ion-card-content{
@@ -52,7 +53,7 @@ ion-card, ion-card-header, ion-card-content{
 
 ion-list{
     border-radius: 10px;
-    --background: #ffffff;
+    background: #3881ff00 !important;
 }
 
 ion-item{
@@ -72,4 +73,5 @@ p, ion-label, h5{
 h3{
     font-weight: 700;
     font-size: 20px !important;
+    color: #3880ff;
 }

@@ -11,6 +11,7 @@
 
 <ion-header>
   <ion-toolbar>
+    <ion-title>Drill Timer</ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/auth/settings">
         Settings
@@ -21,14 +22,14 @@
 <ion-content class="ion-padding">
 
   <h3> {{ (!currentActivity) ? 'Next Practice' : 'Next Activity' }}</h3>
-  <h5 style="margin-top: 100px" *ngIf="plan && !activities || activities?.length == 0" class="ion-text-center">You dont
+  <h3 style="margin-top: 100px" *ngIf="plan && !activities || activities?.length == 0" class="ion-text-center">You dont
     have any activities for your {{plan.date }} practice<br>
-    <ion-button fill="clear" [routerLink]="['/practice-plans/view-plan/', plan.id]">Add One</ion-button>
-  </h5>
+    <ion-button  [routerLink]="['/practice-plans/view-plan/', plan.id]">Add One</ion-button>
+  </h3>
 
-  <h5 style="margin-top: 100px" *ngIf="!plan" class="ion-text-center">You dont have any future practices<br>
-    <ion-button fill="clear" routerLink="/practice-plans/add-plan">Add One</ion-button>
-  </h5>
+  <h3 style="margin-top: 100px" *ngIf="!plan" class="ion-text-center">You dont have any future practices<br>
+    <ion-button  routerLink="/practice-plans/add-plan">Add One</ion-button>
+  </h3>
 
   <div class="ion-no-margin" *ngIf="activities && activities.length > 0">
     <ion-card class="ion-no-margin">
@@ -50,13 +51,13 @@
     <ion-list style="background:#ffffff" lines="none">
         <ion-item (click)="viewNotes(activity)" *ngFor="let activity of activities">
           <ion-label [ngClass]="(activity?.id == currentActivity?.id) ? 'activiated' : '' " >
-            <h2 class="activity-name"> {{ activity.name }}</h2>
+            {{ activity.name }}
             <p>{{ activity.startTime}} - {{ activity.duration }} minutes</p>
           </ion-label>
           <ion-note slot="end">Notes</ion-note>
         </ion-item>
     </ion-list>
-    <h5 style="color: #000;">End Time {{ planEndTime }} - Duration: {{ planDuration }} mintues</h5>
+    <h5 style="color: #000; text-align: center;">End Time {{ planEndTime }} - Duration: {{ planDuration }} mintues</h5>
 
   </div>
 

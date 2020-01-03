@@ -5,9 +5,6 @@
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button color="danger" (click)="delete()">Delete</ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
@@ -34,6 +31,7 @@
     </ion-item-group>
   </form>
   <ion-button expand="block" (click)="save()">Save</ion-button>
+  <ion-button expand="block" color="danger" (click)="delete()">Delete Activity</ion-button>
 
 
 </ion-content>
