@@ -47,7 +47,7 @@
     <h3 style="margin-top: 50px">Activities</h3>
 
 
-    <ion-list style="background:#f5f5f5" lines="none">
+    <ion-list style="background:#ffffff" lines="none">
         <ion-item (click)="viewNotes(activity)" *ngFor="let activity of activities">
           <ion-label [ngClass]="(activity?.id == currentActivity?.id) ? 'activiated' : '' " >
             <h2 class="activity-name"> {{ activity.name }}</h2>

@@ -4,7 +4,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { ConfirmEmailGuard } from './auth/confirm-email/confirm-email.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/tabs', pathMatch: 'full' },
+  { path: '', redirectTo: 'tabs', pathMatch: 'full' },
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule), canActivate: [AuthGuard, ConfirmEmailGuard]

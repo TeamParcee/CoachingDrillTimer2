@@ -30,9 +30,8 @@
     display: none;
 }
 
-h3{
-    font-weight: 700;
-}
+
+
 
 ion-card{
     // width: 100%;
@@ -42,8 +41,8 @@ ion-tab-bar{
     --border: none;
 }
 
-ion-content, ion-header{
-    --background: #f5f5f5;
+ion-content{
+    --background: #ffffff;
 }
 
 ion-card, ion-card-header, ion-card-content{
@@ -53,7 +52,7 @@ ion-card, ion-card-header, ion-card-content{
 
 ion-list{
     border-radius: 10px;
-    --background: #f5f5f5;
+    --background: #ffffff;
 }
 
 ion-item{
@@ -63,4 +62,14 @@ ion-item{
 }
 ion-button{
     margin-top: 20px
+}
+
+p, ion-label, h5{
+    font-size: 16px !important;
+    font-weight: 400;
+}
+
+h3{
+    font-weight: 700;
+    font-size: 20px !important;
 }

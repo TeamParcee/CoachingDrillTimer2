@@ -4,7 +4,7 @@
 <ion-content class="ion-padding">
   <div *ngIf="upcomingPlans && upcomingPlans.length > 0">
     <h3>Upcoming Practices</h3>
-    <ion-list style="background: #f5f5f5;" lines="none">
+    <ion-list style="background: #ffffff;" lines="none">
         <ion-item detail [routerLink]="['/practice-plans/view-plan', plan.id ]" *ngFor="let plan of upcomingPlans">
           <ion-label>
             {{ plan.date + " " + plan.startTime}}
@@ -17,7 +17,7 @@
 
   <div>
     <h3>Past Practices</h3>
-    <ion-list style="background: #f5f5f5;" *ngIf="pastPlans && pastPlans.length > 0" lines="none">
+    <ion-list style="background: #ffffff;" *ngIf="pastPlans && pastPlans.length > 0" lines="none">
         <ion-item detail [routerLink]="['/practice-plans/view-plan', plan.id ]" *ngFor="let plan of pastPlans">
           <ion-label>
             {{ plan.date + " " + plan.startTime}}
