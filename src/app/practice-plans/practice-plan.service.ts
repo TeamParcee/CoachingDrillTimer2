@@ -13,6 +13,7 @@ export class Plan {
         public activitiesCount?: number,
         public startTimestamp?: number,
         public endTimestamp?: number,
+        public template?: string,
     ) { }
 }
 
@@ -40,7 +41,16 @@ export class PlanService {
     addPlan(plan: Plan) {
         let uid = localStorage.getItem("uid");
         return new Promise((resolve, reject) => {
-            this.firestoreService.addDocument("/users/" + uid + "/plans", { ...plan }).then(() => {
+            this.firestoreService.addDocument("/users/" + uid + "/plans", { ...plan }).then((planId) => {
+                if (plan.template != "No Template") {
+                    firebase.firestore().collection("/users/" + uid + "/templates/" + plan.template + "/activities").get().then((activitiesSnap) => {
+                        activitiesSnap.forEach((activity) => {
+                            this.firestoreService.addDocument("/users/" + uid + "/plans/" + planId + "/activities", { ...activity.data() })
+                        })
+                        let plan: Plan = { id: planId as string }
+                        this.updateActivityCount(plan)
+                    })
+                }
                 return resolve()
             }).catch((error) => {
                 return reject(error);
@@ -59,9 +69,28 @@ export class PlanService {
         })
     }
 
+    deleteTemplate(template: Plan) {
+        let uid = localStorage.getItem("uid");
+        return new Promise((resolve, reject) => {
+            this.firestoreService.deleteDocument("/users/" + uid + "/templates/" + template.id).then(() => {
+                return resolve()
+            }).catch((error) => {
+                return reject(error);
+            })
+        })
+    }
+
     updateActivityCount(plan: Plan) {
         let uid = localStorage.getItem("uid");
         firebase.firestore().doc("/users/" + uid + "/plans/" + plan.id).get().then(async (planSnap) => {
+            let activitesSnap = await planSnap.ref.collection("activities").get();
+            planSnap.ref.update({ activitiesCount: activitesSnap.size })
+        })
+    }
+
+    updateActivityCountTemplate(template: Plan) {
+        let uid = localStorage.getItem("uid");
+        firebase.firestore().doc("/users/" + uid + "/templates/" + template.id).get().then(async (planSnap) => {
             let activitesSnap = await planSnap.ref.collection("activities").get();
             planSnap.ref.update({ activitiesCount: activitesSnap.size })
         })

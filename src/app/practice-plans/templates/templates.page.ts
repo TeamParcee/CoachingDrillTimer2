@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/app';
 
+
 @Component({
   selector: 'app-templates',
   templateUrl: './templates.page.html',
@@ -11,9 +12,11 @@ export class TemplatesPage implements OnInit {
 
   constructor(
 
+
   ) { }
 
   templates;
+  plan;
   ngOnInit() {
   }
 
@@ -32,4 +35,7 @@ export class TemplatesPage implements OnInit {
       this.templates = templates;
     })
   }
+
+
+
 }

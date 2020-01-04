@@ -19,6 +19,7 @@ export class EditActivityComponent implements OnInit {
   plan: Plan;
   activity: Activity;
   editActivity: Activity = { ...this.activity }
+  isTemplate;
 
   ngOnInit() { }
 
@@ -28,19 +29,55 @@ export class EditActivityComponent implements OnInit {
   close() {
     this.helper.closeModal();
   }
+
   save() {
+    if (this.isTemplate) {
+      this.saveTemplateActivity();
+    } else {
+      this.savePlanActivity();
+    }
+  }
+
+  delete() {
+    if (this.isTemplate) {
+      this.deleteTemplateActivity()
+    } else {
+      this.deletePlanActivity();
+    }
+  }
+  savePlanActivity() {
     let uid = localStorage.getItem('uid');
     this.firestoreService.setDocument("/users/" + uid + "/plans/" + this.plan.id + "/activities/" + this.activity.id, this.editActivity).then(() => {
       this.close();
     })
   }
 
-  delete() {
+  saveTemplateActivity() {
+    let uid = localStorage.getItem('uid');
+    this.firestoreService.setDocument("/users/" + uid + "/templates/" + this.plan.id + "/activities/" + this.activity.id, this.editActivity).then(() => {
+      this.close();
+    })
+  }
+
+  deletePlanActivity() {
     let uid = localStorage.getItem('uid');
     this.helper.confirmationAlert("Delete Activity", "Are you sure you want to delete this activity?", { denyText: "Cancel", confirmText: "Delete Activity" }).then((result) => {
       if (result) {
         this.firestoreService.deleteDocument("/users/" + uid + "/plans/" + this.plan.id + "/activities/" + this.editActivity.id).then(() => {
           this.planService.updateActivityCount(this.plan);
+          this.helper.closeModal();
+        })
+      }
+    })
+  }
+
+
+  deleteTemplateActivity() {
+    let uid = localStorage.getItem('uid');
+    this.helper.confirmationAlert("Delete Activity", "Are you sure you want to delete this activity?", { denyText: "Cancel", confirmText: "Delete Activity" }).then((result) => {
+      if (result) {
+        this.firestoreService.deleteDocument("/users/" + uid + "/templates/" + this.plan.id + "/activities/" + this.editActivity.id).then(() => {
+          this.planService.updateActivityCountTemplate(this.plan);
           this.helper.closeModal();
         })
       }

@@ -19,13 +19,25 @@ export class AddActivityComponent implements OnInit {
 
   plan: Plan;
   activity: Activity = new Activity();
+  isTemplate;
+
+
   ngOnInit() { }
 
 
   close() {
     this.helper.closeModal();
   }
+
+
   save(activityForm: NgForm) {
+    if (this.isTemplate) {
+      this.saveTemplateActivity(activityForm);
+    } else {
+      this.savePlanActivity(activityForm)
+    }
+  }
+  savePlanActivity(activityForm: NgForm) {
     let form = activityForm.value;
     let uid = localStorage.getItem('uid');
     this.activity = {
@@ -41,6 +53,26 @@ export class AddActivityComponent implements OnInit {
     }
     this.firestoreService.addDocument("/users/" + uid + "/plans/" + this.plan.id + "/activities", { ...this.activity }).then(() => {
       this.planService.updateActivityCount(this.plan);
+      this.helper.closeModal();
+    })
+  }
+
+  saveTemplateActivity(activityForm: NgForm) {
+    let form = activityForm.value;
+    let uid = localStorage.getItem('uid');
+    this.activity = {
+      id: "",
+      date: this.plan.date,
+      startTime: "",
+      endTime: "",
+      duration: form.duration,
+      order: 1000 + this.plan.activitiesCount,
+      notes: form.notes,
+      name: form.name,
+
+    }
+    this.firestoreService.addDocument("/users/" + uid + "/templates/" + this.plan.id + "/activities", { ...this.activity }).then(() => {
+      this.planService.updateActivityCountTemplate(this.plan);
       this.helper.closeModal();
     })
   }

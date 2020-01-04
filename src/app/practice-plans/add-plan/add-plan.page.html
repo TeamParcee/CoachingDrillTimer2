@@ -34,6 +34,18 @@
 
     </ion-list>
 
+    <h3>Template (optional)</h3>
+    <ion-list lines="none">
+      <ion-item>
+        <ion-select placeholder="No Template" name="template" [(ngModel)]="template">
+          <ion-select-option>No Template</ion-select-option>
+          <ion-select-option [value]="t.id"  *ngFor="let t of templates">
+            {{ t.name }} 
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
     <ion-button expand="block" (click)="save(form)" [disabled]=form.invalid>Save</ion-button>
   </form>
 

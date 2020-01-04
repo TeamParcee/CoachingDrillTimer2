@@ -27,12 +27,13 @@
     </ion-list>
   </div>
 
-  <div>
+  <h3 *ngIf="activities && activities.length == 0" class="ion-text-center">This practice has no activities <br>
+  </h3>
+
+  <div *ngIf="activities?.length > 0">
     <h3>Activities</h3>
     <ion-list style="background:#ffffff" lines="none">
-      <p *ngIf="activities && activities.length == 0" class="ion-text-center">This practice has no activities <br>
-        <ion-button (click)="addActivity()">Add One</ion-button>
-      </p>
+
       <ion-reorder-group (ionItemReorder)="reorderActivities($event)" disabled="false">
 
         <ion-item *ngFor="let activity of activities">
@@ -49,11 +50,9 @@
     </ion-list>
     <h5 style="text-align: center;">End Time {{ planEndTime }} - Duration: {{ planDuration }} mintues</h5>
 
-    <ion-button *ngIf="activities && activities.length > 0" (click)="addActivity()" expand="block"
-      class="ion-margin-top">
-      Add Activity</ion-button>
-    <ion-button expand="block" color="danger" (click)="deletePlan()">Delete Practice</ion-button>
-
   </div>
+  <ion-button (click)="addActivity()" expand="block" class="ion-margin-top">
+    Add Activity</ion-button>
+  <ion-button expand="block" color="danger" (click)="deletePlan()">Delete Practice</ion-button>
 
 </ion-content>
