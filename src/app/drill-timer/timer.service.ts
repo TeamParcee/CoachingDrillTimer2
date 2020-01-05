@@ -23,6 +23,7 @@ export class TimerService {
 
     }
     timer;
+    timerRaw;
     pastCurrentActivity;
     completedActivities = [];
     currentActivity;
@@ -37,6 +38,7 @@ export class TimerService {
             let startTimestamp = new Date(activity.date + " " + activity.startTime).getTime();
             let endTimestamp = new Date(activity.date + " " + activity.endTime).getTime();
             let startDistance = endTimestamp - now;
+            this.timerRaw = startDistance;
             if (startDistance > 300577 && index == 0) {
                 this.timer = moment(startTimestamp).calendar()
                 break

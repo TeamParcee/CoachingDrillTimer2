@@ -25,17 +25,21 @@ export class DrillTimerPage implements OnInit {
   nextActivity;
   interval;
   timer;
+  timerRaw;
   noPlan;
   planEndTime;
+  planStartTime;
   planDuration = 0;
-
+  currentTimeStamp;
   ngOnInit() {
   }
 
-  ionViewWillEnter() {  
+  ionViewWillEnter() {
     this.getNextPlan();
     console.log("getting current activity");
     this.interval = setInterval(() => {
+      this.currentTimeStamp = new Date().getTime();
+      console.log(this.currentTimeStamp < this.plan.startTimestamp, this.plan.startTimestamp, this.currentTimeStamp)
       if (this.activities) {
         this.getCurrentActivity();
       }
@@ -47,7 +51,7 @@ export class DrillTimerPage implements OnInit {
     clearInterval(this.interval)
   }
   getNextPlan() {
-    
+
     let uid = localStorage.getItem('uid');
     let now = new Date().getTime();
     firebase.firestore().collection("users/" + uid + "/plans")
@@ -85,6 +89,7 @@ export class DrillTimerPage implements OnInit {
             activities.splice(0, 0, preActivity);
             this.activities = activities;
             this.planEndTime = this.plan.endTime;
+            this.planStartTime = this.plan.startTime
             this.planDuration = planDuration;
           })
         }
@@ -99,6 +104,7 @@ export class DrillTimerPage implements OnInit {
     this.timerService.getCurrentActivity(this.activities);
     this.currentActivity = this.timerService.currentActivity;
     this.nextActivity = this.timerService.nextActivity;
+    this.timerRaw = this.timerService.timerRaw;
     this.timer = this.timerService.timer;
     if (this.timer == "0:00") {
       setTimeout(() => {

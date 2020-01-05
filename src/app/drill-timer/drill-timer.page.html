@@ -21,43 +21,47 @@
 </ion-header>
 <ion-content class="ion-padding">
 
-  <h3> {{ (!currentActivity) ? 'Next Practice' : 'Next Activity' }}</h3>
+  <h3> {{ (!currentActivity) ? 'Next Practice' : currentActivity.name }}</h3>
   <h3 style="margin-top: 100px" *ngIf="plan && !activities || activities?.length == 0" class="ion-text-center">You dont
     have any activities for your {{plan.date }} practice<br>
-    <ion-button  [routerLink]="['/practice-plans/view-plan/', plan.id]">Add One</ion-button>
+    <ion-button [routerLink]="['/practice-plans/view-plan/', plan.id]">Add One</ion-button>
   </h3>
 
   <h3 style="margin-top: 100px" *ngIf="!plan" class="ion-text-center">You dont have any future practices<br>
-    <ion-button  routerLink="/practice-plans/add-plan">Add One</ion-button>
+    <ion-button routerLink="/practice-plans/add-plan">Add One</ion-button>
   </h3>
 
-  <div class="ion-no-margin" *ngIf="activities && activities.length > 0">
+  <h3 *ngIf="currentTimeStamp < plan?.startTimestamp">{{ timer }}  </h3>
+
+
+  <div class="ion-no-margin" *ngIf="activities && activities.length > 0 && currentTimeStamp > plan?.startTimestamp">
     <ion-card class="ion-no-margin">
       <ion-card-header>
-        <ion-card-subtitle> {{ currentActivity?.name }}</ion-card-subtitle>
+        <!-- <ion-card-subtitle> {{ currentActivity?.name }}</ion-card-subtitle> -->
         <ion-card-title>
-          <ion-text>{{ timer }} </ion-text>
+          <ion-text>
+          <p  style="font-size: 70px !important; margin: auto; width: fit-content;" > {{ timer }} </p>
+          </ion-text>
         </ion-card-title>
-        <ion-card-content *ngIf="nextActivity" class="ion-no-padding">
-          Next Activity: {{ nextActivity?.name }}<br>
-          Start Time: {{ nextActivity?.startTime}}
-        </ion-card-content>
       </ion-card-header>
     </ion-card>
 
+  </div>
+
+  <div class="ion-no-margin" *ngIf="activities && activities.length > 0">
     <h3 style="margin-top: 50px">Activities</h3>
 
 
     <ion-list style="background:#ffffff" lines="none">
-        <ion-item (click)="viewNotes(activity)" *ngFor="let activity of activities">
-          <ion-label [ngClass]="(activity?.id == currentActivity?.id) ? 'activiated' : '' " >
-            {{ activity.name }}
-            <p>{{ activity.startTime}} - {{ activity.duration }} minutes</p>
-          </ion-label>
-          <ion-note slot="end">Notes</ion-note>
-        </ion-item>
+      <ion-item (click)="viewNotes(activity)" *ngFor="let activity of activities">
+        <ion-label [ngClass]="(activity?.id == currentActivity?.id) ? 'activiated' : '' ">
+          {{ activity.name }}
+          <p>{{ activity.startTime}} - {{ activity.duration }} minutes</p>
+        </ion-label>
+        <ion-note slot="end">Notes</ion-note>
+      </ion-item>
     </ion-list>
-    <h5 style="color: #000; text-align: center;">End Time {{ planEndTime }} - Duration: {{ planDuration }} mintues</h5>
+    <h5 style="color: #000; text-align: center; margin-bottom: 40px">End Time {{ planEndTime }} - Duration: {{ planDuration }} mintues</h5>
 
   </div>
 
