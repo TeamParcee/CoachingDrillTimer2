@@ -12,7 +12,7 @@
 
 <ion-content class="ion-padding">
 
-  <div>
+  <div  (click)="editDateTime($event)">
     <h3>Practice Date & Time</h3>
     <ion-list lines="none" style="background: #ffffff;" *ngIf="plan">
       <ion-item>
@@ -21,7 +21,7 @@
         </ion-label>
 
         <ion-button color="dark" fill="clear" size="small">
-          <ion-note (click)="editDateTime($event)" slot="end">edit </ion-note>
+          <ion-note slot="end">edit </ion-note>
         </ion-button>
       </ion-item>
     </ion-list>

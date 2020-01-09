@@ -63,10 +63,35 @@ export class PracticePlansPage implements OnInit {
       })
   }
 
-  getCalendarDate(date){
+  getCalendarDate(date) {
+
+    let day: any = new Date(date).getDay();
+    switch (day) {
+      case 0:
+        day = "Sun"
+        break;
+      case 1:
+        day = "Mon"
+        break;
+      case 2:
+        day = "Tue"
+        break;
+      case 3:
+        day = "Wed"
+        break;
+      case 4:
+        day = "Thu"
+        break;
+      case 5:
+        day = "Fri"
+        break;
+      case 6:
+        day = "Sat"
+        break;
+    }
     return {
       date: new Date(date).getDate(),
-      day: new Date(date).getDay(),
+      day: day
     }
   }
   groupPlans(plan: Plan, planIndex, allPlans: Plan[]) {

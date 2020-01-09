@@ -11,15 +11,18 @@
   <div *ngIf="upcomingPlans && upcomingPlans.length > 0">
     <h3>Upcoming Practices</h3>
     <ion-list style="background: #ffffff;" lines="none">
-        <ion-item detail [routerLink]="['/practice-plans/view-plan', plan.id ]" *ngFor="let plan of upcomingPlans">
-          <ion-thumbnail>
-            {{ getCalendarDate(plan.date).date}}
-          </ion-thumbnail>
+      <ion-item detail [routerLink]="['/practice-plans/view-plan', plan.id ]" *ngFor="let plan of upcomingPlans">
+        <ion-thumbnail slot="start">
           <ion-label>
-            {{ plan.date + " " + plan.startTime}}
-            <p>Activities: {{ plan.activitiesCount }} </p>
+            {{ getCalendarDate(plan.date).date}}
+            <p>{{ getCalendarDate(plan.date).day}}</p>
           </ion-label>
-        </ion-item>
+        </ion-thumbnail>
+        <ion-label>
+          {{plan.startTime + " - " + plan.endTime}}
+          <p>Activities: {{ plan.activitiesCount }} </p>
+        </ion-label>
+      </ion-item>
     </ion-list>
   </div>
 
@@ -27,12 +30,12 @@
   <div>
     <h3>Past Practices</h3>
     <ion-list style="background: #ffffff;" *ngIf="pastPlans && pastPlans.length > 0" lines="none">
-        <ion-item detail [routerLink]="['/practice-plans/view-plan', plan.id ]" *ngFor="let plan of pastPlans">
-          <ion-label>
-            {{ plan.date + " " + plan.startTime}}
-            <p>Activities: {{ plan.activitiesCount }} </p>
-          </ion-label>
-        </ion-item>
+      <ion-item detail [routerLink]="['/practice-plans/view-plan', plan.id ]" *ngFor="let plan of pastPlans">
+        <ion-label>
+          {{ plan.date + " " + plan.startTime}}
+          <p>Activities: {{ plan.activitiesCount }} </p>
+        </ion-label>
+      </ion-item>
     </ion-list>
   </div>
 
