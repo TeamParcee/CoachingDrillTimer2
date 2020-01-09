@@ -63,6 +63,12 @@ export class PracticePlansPage implements OnInit {
       })
   }
 
+  getCalendarDate(date){
+    return {
+      date: new Date(date).getDate(),
+      day: new Date(date).getDay(),
+    }
+  }
   groupPlans(plan: Plan, planIndex, allPlans: Plan[]) {
     let now = new Date().getTime();
     if (planIndex == 0 && now > plan.startTimestamp) {

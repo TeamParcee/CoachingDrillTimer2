@@ -39,7 +39,6 @@ export class DrillTimerPage implements OnInit {
     console.log("getting current activity");
     this.interval = setInterval(() => {
       this.currentTimeStamp = new Date().getTime();
-      console.log(this.currentTimeStamp < this.plan.startTimestamp, this.plan.startTimestamp, this.currentTimeStamp)
       if (this.activities) {
         this.getCurrentActivity();
       }
@@ -60,6 +59,8 @@ export class DrillTimerPage implements OnInit {
       .limit(1)
       .onSnapshot((plansSnap) => {
         if (plansSnap.empty) {
+          this.currentActivity = null;
+          this.plan = null;
           this.activities = null;
           return;
         }
@@ -69,28 +70,29 @@ export class DrillTimerPage implements OnInit {
           planRef.collection("activities").orderBy("order").get().then((activitiesSnap) => {
             let activities: Activity[] = [];
             if (activitiesSnap.empty) {
-              this.activities = [];
-              return;
+              this.activities = null;
+            } else {
+              let planDuration = 0;
+              activitiesSnap.forEach((activity) => {
+                let a = { ...activity.data() };
+                a.date = this.plan.date;
+                activities.push(a);
+                planDuration = (a.duration * 1) + planDuration;
+              })
+
+              let preActivity: Activity = {
+                name: "Pre Practice",
+                startTime: moment(activities[0].startTime, "h:mm A").subtract(5, "minutes").format("h:mm A"),
+                endTime: activities[0].startTime,
+                duration: 5,
+                date: this.plan.date,
+              }
+              activities.splice(0, 0, preActivity);
+              this.activities = activities;
+              this.planEndTime = this.plan.endTime;
+              this.planStartTime = this.plan.startTime
+              this.planDuration = planDuration;
             }
-            let planDuration = 0;
-            activitiesSnap.forEach((activity) => {
-              let a = { ...activity.data() };
-              a.date = this.plan.date;
-              activities.push(a);
-              planDuration = (a.duration * 1) + planDuration;
-            })
-            let preActivity: Activity = {
-              name: "Pre Practice",
-              startTime: moment(activities[0].startTime, "h:mm A").subtract(5, "minutes").format("h:mm A"),
-              endTime: activities[0].startTime,
-              duration: 5,
-              date: this.plan.date,
-            }
-            activities.splice(0, 0, preActivity);
-            this.activities = activities;
-            this.planEndTime = this.plan.endTime;
-            this.planStartTime = this.plan.startTime
-            this.planDuration = planDuration;
           })
         }
       })

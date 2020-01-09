@@ -21,7 +21,7 @@
 </ion-header>
 <ion-content class="ion-padding">
 
-  <h3> {{ (!currentActivity) ? 'Next Practice' : currentActivity.name }}</h3>
+  <h3 *ngIf="plan && activities"> {{ (!currentActivity) ? 'Next Practice' : currentActivity.name }}</h3>
   <h3 style="margin-top: 100px" *ngIf="plan && !activities || activities?.length == 0" class="ion-text-center">You dont
     have any activities for your {{plan.date }} practice<br>
     <ion-button [routerLink]="['/practice-plans/view-plan/', plan.id]">Add One</ion-button>
