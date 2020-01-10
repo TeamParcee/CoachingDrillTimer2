@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { TimerService } from './drill-timer/timer.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private backgroundMode: BackgroundMode,
+    private timerService: TimerService,
   ) {
     this.initializeApp();
   }
@@ -25,6 +27,14 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
       this.backgroundMode.enable();
+      this.timerService.getNextPlan().then(() => {
+        setInterval(() => {
+          let activities = this.timerService.activities;
+          this.timerService.getCurrentActivity(activities);
+          console.log(this.timerService.timer)
+        }, 1000)
+      })
+
     });
   }
 }

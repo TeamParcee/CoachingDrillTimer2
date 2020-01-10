@@ -31,90 +31,31 @@ export class DrillTimerPage implements OnInit {
   planStartTime;
   planDuration = 0;
   currentTimeStamp;
+  showLoading = true;
   ngOnInit() {
+    setTimeout(() => {
+      this.showLoading = false;
+    }, 2000)
   }
 
   ionViewWillEnter() {
-    this.getNextPlan();
-    console.log("getting current activity");
     this.interval = setInterval(() => {
       this.currentTimeStamp = new Date().getTime();
-      if (this.activities) {
-        this.getCurrentActivity();
-      }
+      this.plan = this.timerService.plan;
+      this.activities = this.timerService.activities;
+      this.currentActivity = this.timerService.currentActivity;
+      this.nextActivity = this.timerService.nextActivity;
+      this.timerRaw = this.timerService.timerRaw;
+      this.timer = this.timerService.timer;
     }, 1000)
   }
 
   ionViewWillLeave() {
-    console.log("stoppoing getting current activity");
     clearInterval(this.interval)
   }
-  getNextPlan() {
-
-    let uid = localStorage.getItem('uid');
-    let now = new Date().getTime();
-    firebase.firestore().collection("users/" + uid + "/plans")
-      .where("endTimestamp", ">=", now)
-      .orderBy("endTimestamp")
-      .limit(1)
-      .onSnapshot((plansSnap) => {
-        if (plansSnap.empty) {
-          this.currentActivity = null;
-          this.plan = null;
-          this.activities = null;
-          return;
-        }
-        if (!plansSnap.empty) {
-          this.plan = plansSnap.docs[0].data();
-          let planRef = plansSnap.docs[0].ref;
-          planRef.collection("activities").orderBy("order").get().then((activitiesSnap) => {
-            let activities: Activity[] = [];
-            if (activitiesSnap.empty) {
-              this.activities = null;
-            } else {
-              let planDuration = 0;
-              activitiesSnap.forEach((activity) => {
-                let a = { ...activity.data() };
-                a.date = this.plan.date;
-                activities.push(a);
-                planDuration = (a.duration * 1) + planDuration;
-              })
-
-              let preActivity: Activity = {
-                name: "Pre Practice",
-                startTime: moment(activities[0].startTime, "h:mm A").subtract(5, "minutes").format("h:mm A"),
-                endTime: activities[0].startTime,
-                duration: 5,
-                date: this.plan.date,
-              }
-              activities.splice(0, 0, preActivity);
-              this.activities = activities;
-              this.planEndTime = this.plan.endTime;
-              this.planStartTime = this.plan.startTime
-              this.planDuration = planDuration;
-            }
-          })
-        }
-      })
-  }
-
   viewNotes(activity) {
     this.helper.openModal(ViewNotesPage, { activity: activity })
   }
 
-  getCurrentActivity() {
-    this.timerService.getCurrentActivity(this.activities);
-    this.currentActivity = this.timerService.currentActivity;
-    this.nextActivity = this.timerService.nextActivity;
-    this.timerRaw = this.timerService.timerRaw;
-    this.timer = this.timerService.timer;
-    if (this.timer == "0:00") {
-      setTimeout(() => {
-        if (this.timer == "0:00") {
-          this.getNextPlan();
-          this.plan = null;
-        }
-      }, 2000);
-    }
-  }
+
 }

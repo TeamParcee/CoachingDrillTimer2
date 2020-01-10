@@ -29,8 +29,8 @@ export class PracticePlansPage implements OnInit {
     let uid = localStorage.getItem('uid');
     let now = new Date().getTime();
     firebase.firestore().collection("/users/" + uid + "/plans")
-      .where("startTimestamp", ">=", now)
-      .orderBy("startTimestamp")
+      .where("endTimestamp", ">=", now)
+      .orderBy("endTimestamp")
       .onSnapshot((plansSnap) => {
         let plans = [];
         plansSnap.forEach(async (plan) => {
@@ -48,8 +48,8 @@ export class PracticePlansPage implements OnInit {
     let uid = localStorage.getItem('uid');
     let now = new Date().getTime();
     firebase.firestore().collection("/users/" + uid + "/plans")
-      .where("startTimestamp", "<", now)
-      .orderBy("startTimestamp", "desc")
+      .where("endTimestamp", "<", now)
+      .orderBy("endTimestamp", "desc")
       .onSnapshot((plansSnap) => {
         let plans = [];
         plansSnap.forEach(async (plan) => {

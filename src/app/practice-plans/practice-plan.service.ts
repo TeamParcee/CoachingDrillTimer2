@@ -27,6 +27,7 @@ export class Activity {
         public name?: string,
         public notes?: string,
         public duration?: number,
+        public showAlert?: boolean,
     ) { }
 }
 @Injectable({

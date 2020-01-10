@@ -88,8 +88,8 @@ export class HelperService {
   stopTimerAlert(activity) {
     return new Promise((resolve) => {
       this.alertCtrl.create({
-        header: "Activity Started",
-        message: activity.name + " has started",
+        header: "Activity Ended",
+        message: activity.name + " has ended",
         buttons: [{
           text: "OK",
           role: "cancel",
