@@ -31,7 +31,6 @@ export class AppComponent {
         setInterval(() => {
           let activities = this.timerService.activities;
           this.timerService.getCurrentActivity(activities);
-          console.log(this.timerService.timer)
         }, 1000)
       })
 

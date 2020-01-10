@@ -48,7 +48,6 @@ export class DrillTimerPage implements OnInit {
       this.timerRaw = this.timerService.timerRaw;
       this.timer = this.timerService.timer;
       let x:any = this.activities[0];
-      console.log(x.startTimestamp > this.currentTimestamp, x.startTimestamp, this.currentTimestamp);
     }, 1000)
   }
 
