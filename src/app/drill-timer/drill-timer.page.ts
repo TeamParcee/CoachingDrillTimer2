@@ -6,6 +6,8 @@ import { ViewNotesPage } from './view-notes/view-notes.page';
 import { TimerService } from './timer.service';
 import { Activity } from '../practice-plans/practice-plan.service';
 import * as moment from 'moment';
+import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
+
 
 @Component({
   selector: 'app-drill-timer',
@@ -17,6 +19,7 @@ export class DrillTimerPage implements OnInit {
   constructor(
     private helper: HelperService,
     private timerService: TimerService,
+    private nr: NativeRingtones,
   ) { }
 
   plan;
@@ -52,7 +55,10 @@ export class DrillTimerPage implements OnInit {
   }
 
   music(){
-    this.timerService.alarmFile.play();
+    this.nr.getRingtone().then((r)=>{
+      console.log(r);
+      this.nr.playRingtone(r[0]);
+    })
   }
   ionViewWillLeave() {
     clearInterval(this.interval)

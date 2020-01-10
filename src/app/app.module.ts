@@ -20,6 +20,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
+import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
 
 var firebaseConfig = {
   apiKey: "AIzaSyA4u44PggAxUKQ0uYqAUDA30H2Vu4qc4FM",
@@ -59,6 +60,7 @@ firebase.analytics();
     Vibration,
     BackgroundMode,
     Media,
+    NativeRingtones,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
