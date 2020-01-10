@@ -35,6 +35,7 @@ export class TimerService {
     interval;
     alarmFile: MediaObject;
 
+
     getCurrentActivity(activities: Activity[]) {
         let index = 0;
         for (let activity of activities) {
