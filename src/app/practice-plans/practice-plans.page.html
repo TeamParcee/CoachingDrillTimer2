@@ -12,14 +12,8 @@
     <h3>Upcoming Practices</h3>
     <ion-list style="background: #ffffff;" lines="none">
       <ion-item detail [routerLink]="['/practice-plans/view-plan', plan.id ]" *ngFor="let plan of upcomingPlans">
-        <ion-thumbnail slot="start">
-          <ion-label>
-            {{ getCalendarDate(plan.date).date}}
-            <p>{{ getCalendarDate(plan.date).day}}</p>
-          </ion-label>
-        </ion-thumbnail>
         <ion-label>
-          {{plan.startTime + " - " + plan.endTime}}
+          {{ plan.date + " " + plan.startTime}}
           <p>Activities: {{ plan.activitiesCount }} </p>
         </ion-label>
       </ion-item>
