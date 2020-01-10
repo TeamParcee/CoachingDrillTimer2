@@ -21,9 +21,8 @@ export class TimerService {
         private backgroundMode: BackgroundMode,
         private media: Media,
     ) {
-        this.alarmFile = this.media.create('https://firebasestorage.googleapis.com/v0/b/parceesportsplanner.appspot.com/o/iphone_alarm_morning.mp3?alt=media&token=76784c6e-1f1b-481a-a12f-7bc1cb121f6a')
         this.alarmFile.onError.subscribe((error) => {
-            console.log(error, "Something Bad Happend with Midea")
+            console.log(error, "Something Bad Happend with Mid")
         })
         console.log(this.alarmFile, "Alarm File")
 
@@ -40,6 +39,9 @@ export class TimerService {
     alarmFile: MediaObject;
 
 
+    loadAudio() {
+        this.alarmFile = this.media.create('https://firebasestorage.googleapis.com/v0/b/parceesportsplanner.appspot.com/o/iphone_alarm_morning.mp3?alt=media&token=76784c6e-1f1b-481a-a12f-7bc1cb121f6a')
+    }
     getCurrentActivity(activities: Activity[]) {
         let index = 0;
         for (let activity of activities) {

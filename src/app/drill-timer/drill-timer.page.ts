@@ -56,6 +56,7 @@ export class DrillTimerPage implements OnInit {
 
   music(){
     this.timerService.alarmFile.play();
+    console.log("this is new");
   }
   ionViewWillLeave() {
     clearInterval(this.interval)
