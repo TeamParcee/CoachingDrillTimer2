@@ -30,7 +30,7 @@ export class DrillTimerPage implements OnInit {
   planEndTime;
   planStartTime;
   planDuration = 0;
-  currentTimeStamp;
+  currentTimestamp;
   showLoading = true;
   ngOnInit() {
     setTimeout(() => {
@@ -40,13 +40,15 @@ export class DrillTimerPage implements OnInit {
 
   ionViewWillEnter() {
     this.interval = setInterval(() => {
-      this.currentTimeStamp = new Date().getTime();
+      this.currentTimestamp = new Date().getTime();
       this.plan = this.timerService.plan;
       this.activities = this.timerService.activities;
       this.currentActivity = this.timerService.currentActivity;
       this.nextActivity = this.timerService.nextActivity;
       this.timerRaw = this.timerService.timerRaw;
       this.timer = this.timerService.timer;
+      let x:any = this.activities[0];
+      console.log(x.startTimestamp > this.currentTimestamp, x.startTimestamp, this.currentTimestamp);
     }, 1000)
   }
 

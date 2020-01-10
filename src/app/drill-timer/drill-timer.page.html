@@ -16,9 +16,9 @@
 
 
   <div *ngIf="!showLoading">
-    <ion-card *ngIf="plan && activies && currentTimeStamp < plan?.startTimestamp">
+    <ion-card *ngIf="plan && activities && currentTimestamp < activities[0]?.startTimestamp">
       <ion-card-content>
-        <h3 style="color: #000" *ngIf="plan && activities"> {{ (!currentActivity) ? 'Next Practice' : "" }}</h3>
+        <h3 style="color: #000" *ngIf="plan && activities"> Next Practice</h3>
         <h3 style="color: #000">{{ timer }} </h3>
       </ion-card-content>
     </ion-card>
@@ -36,7 +36,7 @@
 
 
 
-    <div class="ion-no-margin" *ngIf="activities && activities.length > 0 && currentTimeStamp > plan?.startTimestamp">
+    <div class="ion-no-margin" *ngIf="activities && activities.length > 0 && currentTimestamp > activities[0]?.startTimestamp">
       <ion-card class="ion-no-margin">
         <ion-card-header>
           <ion-card-subtitle> {{ currentActivity?.name }}</ion-card-subtitle>

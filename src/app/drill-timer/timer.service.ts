@@ -61,7 +61,6 @@ export class TimerService {
 
             }
             index++;
-            console.log(activity.name);
             if (!this.completedActivities.includes(activity.id, 0)) {
                 this.completedActivities.push(activity.id);
                 if (activity.showAlert) {
@@ -104,11 +103,13 @@ export class TimerService {
                                     planDuration = (a.duration * 1) + planDuration;
                                 })
                                 this.updateStartTime(activities).then((acts: any) => {
-                                    let preActivity: Activity = {
+                                    let startTime = moment(acts[0].startTime, "h:mm A").subtract(5, "minutes").format("h:mm A");
+                                    let preActivity = {
                                         name: "Pre Practice",
-                                        startTime: moment(acts[0].startTime, "h:mm A").subtract(5, "minutes").format("h:mm A"),
+                                        startTime: startTime,
                                         endTime: acts[0].startTime,
                                         duration: 5,
+                                        startTimestamp: new Date(this.plan.date + " " + startTime).getTime(),
                                         date: this.plan.date,
                                     }
                                     acts.splice(0, 0, preActivity);
