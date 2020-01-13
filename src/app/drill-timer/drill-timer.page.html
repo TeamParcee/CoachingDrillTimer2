@@ -14,7 +14,6 @@
     <ion-spinner></ion-spinner>
   </div>
 
-  <ion-button (click)="music()">Play Music</ion-button>
 
   <div *ngIf="!showLoading">
     <ion-card *ngIf="plan && activities && currentTimestamp < activities[0]?.startTimestamp">

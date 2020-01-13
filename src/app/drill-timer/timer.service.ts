@@ -21,10 +21,7 @@ export class TimerService {
         private backgroundMode: BackgroundMode,
         private media: Media,
     ) {
-        this.alarmFile.onError.subscribe((error) => {
-            console.log(error, "Something Bad Happend with Mid")
-        })
-        console.log(this.alarmFile, "Alarm File")
+
 
     }
     timer;
@@ -39,42 +36,42 @@ export class TimerService {
     alarmFile: MediaObject;
 
 
-    loadAudio() {
-        this.alarmFile = this.media.create('https://firebasestorage.googleapis.com/v0/b/parceesportsplanner.appspot.com/o/iphone_alarm_morning.mp3?alt=media&token=76784c6e-1f1b-481a-a12f-7bc1cb121f6a')
-    }
     getCurrentActivity(activities: Activity[]) {
         let index = 0;
-        for (let activity of activities) {
-            let now = new Date().getTime();
-            let startTimestamp = new Date(activity.date + " " + activity.startTime).getTime();
-            let endTimestamp = new Date(activity.date + " " + activity.endTime).getTime();
-            let startDistance = endTimestamp - now;
-            this.timerRaw = startDistance;
-            if (startDistance > 300577 && index == 0) {
-                this.timer = moment(startTimestamp).calendar()
-                break
-            }
+        if (activities) {
+            for (let activity of activities) {
+                let now = new Date().getTime();
+                let startTimestamp = new Date(activity.date + " " + activity.startTime).getTime();
+                let endTimestamp = new Date(activity.date + " " + activity.endTime).getTime();
+                let startDistance = endTimestamp - now;
+                this.timerRaw = startDistance;
+                if (startDistance > 300577 && index == 0) {
+                    this.timer = moment(startTimestamp).calendar()
+                    break
+                }
 
 
-            if (endTimestamp > now) {
-                activity.showAlert = true;
-                let time = endTimestamp - now;
-                let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
-                let seconds = Math.floor((time % (1000 * 60)) / 1000);
-                this.timer = ((minutes.toString().length == 1) ? "0" + minutes.toString() : minutes) + ":" + ((seconds.toString().length == 1) ? "0" + seconds.toString() : seconds);
-                this.currentActivity = activity;
-                this.nextActivity = activities[index + 1]
-                break;
+                if (endTimestamp > now) {
+                    activity.showAlert = true;
+                    let time = endTimestamp - now;
+                    let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+                    let seconds = Math.floor((time % (1000 * 60)) / 1000);
+                    this.timer = ((minutes.toString().length == 1) ? "0" + minutes.toString() : minutes) + ":" + ((seconds.toString().length == 1) ? "0" + seconds.toString() : seconds);
+                    this.currentActivity = activity;
+                    this.nextActivity = activities[index + 1]
+                    break;
 
-            }
-            index++;
-            if (!this.completedActivities.includes(activity.id, 0)) {
-                this.completedActivities.push(activity.id);
-                if (activity.showAlert) {
-                    this.activityCompleted(activities[index - 1]);
+                }
+                index++;
+                if (!this.completedActivities.includes(activity.id, 0)) {
+                    this.completedActivities.push(activity.id);
+                    if (activity.showAlert) {
+                        this.activityCompleted(activities[index - 1]);
+                    }
                 }
             }
         }
+
     }
 
     getNextPlan() {
@@ -131,22 +128,7 @@ export class TimerService {
         })
 
     }
-    // createNotification(activity) {
-    //     let time = new Date(activity.date + " " + activity.endTime).getTime();
-
-    //     this.localNotifications.schedule({
-    //         text: activity.name,
-    //         vibrate: true,
-    //         trigger: { at: new Date(time) },
-    //         actions: [{
-    //             id: "OK", title: "OK",
-    //         }]
-    //     })
-
-    //     this.localNotifications.on('OK', () => {
-    //         console.log("hey that worked")
-    //     })
-    // }
+ 
 
     updateStartTime(activities) {
         return new Promise((resolve) => {

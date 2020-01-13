@@ -27,7 +27,6 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
       this.backgroundMode.enable();
-      this.timerService.loadAudio();
       this.timerService.getNextPlan().then(() => {
         setInterval(() => {
           let activities = this.timerService.activities;

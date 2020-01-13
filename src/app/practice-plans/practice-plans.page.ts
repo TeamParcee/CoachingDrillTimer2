@@ -11,7 +11,9 @@ import * as moment from 'moment';
 })
 export class PracticePlansPage implements OnInit {
 
-  constructor() { }
+  constructor(
+
+  ) { }
 
   plans: Plan[];
   upcomingPlans;
@@ -106,4 +108,6 @@ export class PracticePlansPage implements OnInit {
       return "upcoming Practice"
     }
   }
+
+
 }

@@ -10,6 +10,8 @@ import { ChangeDatetimeComponent } from './change-datetime/change-datetime.compo
 import { AddActivityComponent } from './add-activity/add-activity.component';
 import { EditActivityComponent } from './edit-activity/edit-activity.component';
 import { FireStoreService } from 'src/app/shared/firestore.service';
+import { NotificaitonService } from 'src/app/shared/notification.service';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: 'app-view-plan',
@@ -24,6 +26,8 @@ export class ViewPlanPage implements OnInit {
     private navCtrl: NavController,
     private route: ActivatedRoute,
     private firestoreService: FireStoreService,
+    private notification: NotificaitonService,
+    private ln: LocalNotifications,
   ) { }
 
   ngOnInit() {
@@ -33,6 +37,7 @@ export class ViewPlanPage implements OnInit {
   activities: Activity[];
   planEndTime;
   planDuration = 0;
+  notifications;
 
   ionViewWillEnter() {
     this.getId();
@@ -41,6 +46,7 @@ export class ViewPlanPage implements OnInit {
   ionViewWillLeave() {
     this.saveActivities();
     this.saveEndtime();
+    this.createNotifications();
   }
   getId() {
     this.route.paramMap.subscribe((paramMap) => {
@@ -131,6 +137,17 @@ export class ViewPlanPage implements OnInit {
     })
   }
 
+  createNotifications() {
+    this.activities.forEach((activity) => {
+      this.notification.create(activity.name, "January 12, 2020 20:55:00")
+    })
+  }
+
+  n() {
+    this.ln.getAllScheduled().then((notifications) => {
+      this.notifications = notifications
+    })
+  }
   saveEndtime() {
     let uid = localStorage.getItem('uid');
     this.firestoreService.updateDocument("users/" + uid + "/plans/" + this.plan.id, { endTimestamp: new Date(this.plan.date + " " + this.planEndTime).getTime(), endTime: this.planEndTime })
