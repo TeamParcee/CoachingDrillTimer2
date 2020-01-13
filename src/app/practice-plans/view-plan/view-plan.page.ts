@@ -139,7 +139,8 @@ export class ViewPlanPage implements OnInit {
 
   createNotifications() {
     this.activities.forEach((activity) => {
-      this.notification.create(activity.name, this.plan.date + " " + activity.startTime)
+      this.notification.create(activity.name, this.plan.date + " " + activity.startTime);
+      console.log(this.plan.date + " " + activity.startTime, "<+++first")
     })
   }
 

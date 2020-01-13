@@ -16,9 +16,9 @@ export class NotificaitonService {
     create(title, date) {
         let timestamp = new Date(date).getTime();
         let trigger: ILocalNotificationTrigger = {
-            at: new Date(moment(date).format("MMMM DD, YYYY HH:MM:SS")),
+            at: new Date(moment(date).format("MMMM DD, YYYY hh:mm:ss")),
         }
-        console.log(new Date(moment(date).format("MMMM DD, YYYY HH:MM:SS")), "<==========this is this date")
+        console.log(moment(date).format("MMMM DD, YYYY hh:mm:ss"), "<==========this is this date")
         this.ln.schedule({
             id: timestamp,
             title: title,
