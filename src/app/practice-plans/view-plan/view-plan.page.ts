@@ -139,8 +139,17 @@ export class ViewPlanPage implements OnInit {
 
   createNotifications() {
     this.activities.forEach((activity) => {
-      console.log(activity, "thisis the acticity");
-      this.notification.create(activity.name, this.plan.date + " " + activity.startTime);
+      this.ln.get(activity.id).then((notification) => {
+        if (notification) {
+          notification.title = activity.name;
+          notification.text = activity.startTime;
+          notification.trigger.at = new Date(moment(this.plan.date + " " + activity.startTime).format("MMMM DD, YYYY hh:mm:ss"));
+        } else {
+          this.notification.create(activity.id, activity.name, activity.startTime, this.plan.date + " " + activity.startTime)
+        }
+      }).catch(()=>{
+        this.notification.create(activity.id, activity.name, activity.startTime, this.plan.date + " " + activity.startTime)
+      })
     })
   }
 

@@ -3,6 +3,7 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { NgForm } from '@angular/forms';
 import { FireStoreService } from 'src/app/shared/firestore.service';
 import { Plan, Activity, PlanService } from '../../practice-plan.service';
+import { NotificaitonService } from 'src/app/shared/notification.service';
 
 @Component({
   selector: 'app-add-activity',
@@ -15,6 +16,7 @@ export class AddActivityComponent implements OnInit {
     private helper: HelperService,
     private firestoreService: FireStoreService,
     private planService: PlanService,
+    private notification: NotificaitonService,
   ) { }
 
   plan: Plan;
@@ -51,7 +53,7 @@ export class AddActivityComponent implements OnInit {
       name: form.name,
 
     }
-    this.firestoreService.addDocument("/users/" + uid + "/plans/" + this.plan.id + "/activities", { ...this.activity }).then(() => {
+    this.firestoreService.addDocument("/users/" + uid + "/plans/" + this.plan.id + "/activities", { ...this.activity }).then((id) => {
       this.planService.updateActivityCount(this.plan);
       this.helper.closeModal();
     })
