@@ -139,13 +139,13 @@ export class ViewPlanPage implements OnInit {
 
   createNotifications() {
     this.activities.forEach((activity) => {
+      console.log(activity, "thisis the acticity");
       this.notification.create(activity.name, this.plan.date + " " + activity.startTime);
-      console.log(this.plan.date + " " + activity.startTime, "<+++first")
     })
   }
 
   n() {
-    this.ln.getAllScheduled().then((notifications) => {
+    this.ln.getAll().then((notifications) => {
       this.notifications = notifications
     })
   }
