@@ -59,18 +59,23 @@ export class TimerService {
                     this.timer = ((minutes.toString().length == 1) ? "0" + minutes.toString() : minutes) + ":" + ((seconds.toString().length == 1) ? "0" + seconds.toString() : seconds);
                     this.currentActivity = activity;
                     this.nextActivity = activities[index + 1]
+                    console.log("made it here");
                     break;
 
                 }
                 index++;
                 if (!this.completedActivities.includes(activity.id, 0)) {
                     this.completedActivities.push(activity.id);
-                    if (activity.showAlert) {
-                        this.activityCompleted(activities[index - 1]);
+                    if (activity.showAlert && activity.id == this.activities[this.activities.length - 1].id) {
+                        this.getNextPlan();
+                        console.log("this it is done");
                     }
+                    // if (activity.showAlert) {
+                    //     this.activityCompleted(activities[index - 1]);
+                    // }
                 }
             }
-        }
+        } 
 
     }
 
@@ -128,7 +133,7 @@ export class TimerService {
         })
 
     }
- 
+
 
     updateStartTime(activities) {
         return new Promise((resolve) => {
@@ -151,15 +156,15 @@ export class TimerService {
     }
 
 
-    activityCompleted(activity) {
-        this.stopVibrating();
-        this.backgroundMode.unlock();
-        this.alarmFile.play();
-        this.interval = setInterval(() => {
-            this.vibration.vibrate(10000)
-        }, 1000)
-        this.showStopTimerAlert(activity);
-    }
+    // activityCompleted(activity) {
+    //     this.stopVibrating();
+    //     this.backgroundMode.unlock();
+    //     this.alarmFile.play();
+    //     this.interval = setInterval(() => {
+    //         this.vibration.vibrate(10000)
+    //     }, 1000)
+    //     this.showStopTimerAlert(activity);
+    // }
 
     showStopTimerAlert(activity) {
         this.helper.stopTimerAlert(activity).then(() => {

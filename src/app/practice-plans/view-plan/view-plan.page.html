@@ -11,7 +11,6 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
   <div (click)="editDateTime($event)">
     <h3>Practice Date & Time</h3>
     <ion-list lines="none" style="background: #ffffff;" *ngIf="plan">
@@ -55,7 +54,7 @@
     Add Activity</ion-button>
   <ion-button expand="block" color="danger" (click)="deletePlan()">Delete Practice</ion-button>
 
-
+<!-- 
   <h3>Notifications</h3>
   <ion-list>
     <ion-button (click)="n()">Get Notifications</ion-button>
@@ -64,5 +63,5 @@
         {{n.title}} - {{n.text}}
       </ion-label>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 </ion-content>

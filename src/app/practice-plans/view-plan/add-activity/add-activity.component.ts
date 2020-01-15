@@ -22,8 +22,6 @@ export class AddActivityComponent implements OnInit {
   plan: Plan;
   activity: Activity = new Activity();
   isTemplate;
-
-
   ngOnInit() { }
 
 
@@ -40,6 +38,7 @@ export class AddActivityComponent implements OnInit {
     }
   }
   savePlanActivity(activityForm: NgForm) {
+    let   notificationId = Math.ceil(Math.random() * 100000000);
     let form = activityForm.value;
     let uid = localStorage.getItem('uid');
     this.activity = {
@@ -51,6 +50,7 @@ export class AddActivityComponent implements OnInit {
       order: 1000 + this.plan.activitiesCount,
       notes: form.notes,
       name: form.name,
+      notificationId: notificationId,
 
     }
     this.firestoreService.addDocument("/users/" + uid + "/plans/" + this.plan.id + "/activities", { ...this.activity }).then((id) => {
@@ -60,6 +60,7 @@ export class AddActivityComponent implements OnInit {
   }
 
   saveTemplateActivity(activityForm: NgForm) {
+    let   notificationId = Math.ceil(Math.random() * 100000000);
     let form = activityForm.value;
     let uid = localStorage.getItem('uid');
     this.activity = {
@@ -71,6 +72,7 @@ export class AddActivityComponent implements OnInit {
       order: 1000 + this.plan.activitiesCount,
       notes: form.notes,
       name: form.name,
+      notificationId: notificationId,
 
     }
     this.firestoreService.addDocument("/users/" + uid + "/templates/" + this.plan.id + "/activities", { ...this.activity }).then(() => {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Plan, Activity, PlanService } from '../../practice-plan.service';
 import { HelperService } from 'src/app/shared/helper.service';
 import { FireStoreService } from 'src/app/shared/firestore.service';
+import { NotificaitonService } from 'src/app/shared/notification.service';
 
 @Component({
   selector: 'app-edit-activity',
@@ -14,6 +15,7 @@ export class EditActivityComponent implements OnInit {
     private helper: HelperService,
     private firestoreService: FireStoreService,
     private planService: PlanService,
+    private notification: NotificaitonService,
   ) { }
 
   plan: Plan;
@@ -64,6 +66,7 @@ export class EditActivityComponent implements OnInit {
     this.helper.confirmationAlert("Delete Activity", "Are you sure you want to delete this activity?", { denyText: "Cancel", confirmText: "Delete Activity" }).then((result) => {
       if (result) {
         this.firestoreService.deleteDocument("/users/" + uid + "/plans/" + this.plan.id + "/activities/" + this.editActivity.id).then(() => {
+          this.notification.delete(this.activity.notificationId);
           this.planService.updateActivityCount(this.plan);
           this.helper.closeModal();
         })

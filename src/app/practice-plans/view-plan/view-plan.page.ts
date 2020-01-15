@@ -73,10 +73,16 @@ export class ViewPlanPage implements OnInit {
     })
   }
   deletePlan() {
+    let uid = localStorage.getItem('uid');
     this.helper.confirmationAlert("Delete Plan", "Are you sure you want to delete this plan?", { denyText: "Cancel", confirmText: "Delete Plan" }).then((result) => {
       if (result) {
-        this.planService.deletePlan(this.plan).then(() => {
-          this.navCtrl.navigateBack("/tabs/practice-plans")
+        firebase.firestore().collection("/users/" + uid + "/plans/" + this.plan.id + "/activities").get().then((activitiesSnap) => {
+          activitiesSnap.forEach((activity) => {
+            this.notification.delete(activity.data().notificationId)
+          })
+          this.planService.deletePlan(this.plan).then(() => {
+            this.navCtrl.navigateBack("/tabs/practice-plans")
+          })
         })
       }
     })
@@ -137,23 +143,22 @@ export class ViewPlanPage implements OnInit {
     })
   }
 
-  createNotifications() {
-    this.activities.forEach((activity) => {
-      this.ln.get(activity.id).then((notification) => {
-        if (notification) {
-          notification.title = activity.name;
-          notification.text = activity.startTime;
-          notification.trigger.at = new Date(moment(this.plan.date + " " + activity.startTime).format("MMMM DD, YYYY hh:mm:ss"));
-        } else {
-          this.notification.create(activity.id, activity.name, activity.startTime, this.plan.date + " " + activity.startTime)
-        }
-      }).catch(()=>{
-        this.notification.create(activity.id, activity.name, activity.startTime, this.plan.date + " " + activity.startTime)
+  async createNotifications() {
+      this.activities.forEach((activity) => {
+        this.ln.get(activity.notificationId).then((notification) => {
+          if (notification) {
+            this.notification.update(activity.notificationId, activity.name, activity.startTime, this.plan.date + " " + activity.startTime)
+          } else {
+            this.notification.create(activity.notificationId, activity.name, activity.startTime, this.plan.date + " " + activity.startTime)
+          }
+        }).catch((error) => {
+          this.notification.create(activity.notificationId, activity.name, activity.startTime, this.plan.date + " " + activity.startTime)
+        })
       })
-    })
   }
 
   n() {
+
     this.ln.getAll().then((notifications) => {
       this.notifications = notifications
     })
