@@ -27,13 +27,6 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
       this.backgroundMode.enable();
-      this.timerService.getNextPlan().then(() => {
-        setInterval(() => {
-          let activities = this.timerService.activities;
-          this.timerService.getCurrentActivity(activities);
-        }, 1000)
-      })
-
     });
   }
 }

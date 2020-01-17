@@ -57,7 +57,6 @@ export class FireStoreService {
       firebase.firestore().doc(doc).delete().then(() => {
         return resolve()
       }).catch((error) => {
-        console.log(error.message)
       })
     })
   }

@@ -36,8 +36,9 @@ export class TimerService {
     alarmFile: MediaObject;
 
 
-    getCurrentActivity(activities: Activity[]) {
+    getCurrentActivity() {
         let index = 0;
+        let activities = this.activities;
         if (activities) {
             for (let activity of activities) {
                 let now = new Date().getTime();
@@ -59,7 +60,6 @@ export class TimerService {
                     this.timer = ((minutes.toString().length == 1) ? "0" + minutes.toString() : minutes) + ":" + ((seconds.toString().length == 1) ? "0" + seconds.toString() : seconds);
                     this.currentActivity = activity;
                     this.nextActivity = activities[index + 1]
-                    console.log("made it here");
                     break;
 
                 }
@@ -68,7 +68,6 @@ export class TimerService {
                     this.completedActivities.push(activity.id);
                     if (activity.showAlert && activity.id == this.activities[this.activities.length - 1].id) {
                         this.getNextPlan();
-                        console.log("this it is done");
                     }
                     // if (activity.showAlert) {
                     //     this.activityCompleted(activities[index - 1]);

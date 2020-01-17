@@ -40,16 +40,19 @@ export class DrillTimerPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.interval = setInterval(() => {
-      this.currentTimestamp = new Date().getTime();
-      this.plan = this.timerService.plan;
-      this.activities = this.timerService.activities;
-      this.currentActivity = this.timerService.currentActivity;
-      this.nextActivity = this.timerService.nextActivity;
-      this.timerRaw = this.timerService.timerRaw;
-      this.timer = this.timerService.timer;
-      console.log(this.timer);
-    }, 1000)
+
+    this.timerService.getNextPlan().then(() => {
+      this.interval = setInterval(() => {
+        this.timerService.getCurrentActivity();
+        this.currentTimestamp = new Date().getTime();
+        this.plan = this.timerService.plan;
+        this.activities = this.timerService.activities;
+        this.currentActivity = this.timerService.currentActivity;
+        this.nextActivity = this.timerService.nextActivity;
+        this.timerRaw = this.timerService.timerRaw;
+        this.timer = this.timerService.timer;
+      }, 1000)
+    })
   }
 
   ionViewWillLeave() {
