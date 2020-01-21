@@ -35,7 +35,7 @@ export class RegisterPage implements OnInit {
         localStorage.setItem('uid', user.uid);
         this.firestoreService.setDocument("/users/" + user.uid, {
           fname: form.fname,
-          lanme: form.lname,
+          lname: form.lname,
           email: form.email,
           uid: user.uid
         }).then(() => {
