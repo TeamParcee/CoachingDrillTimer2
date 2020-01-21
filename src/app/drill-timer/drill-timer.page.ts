@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import * as firebase from 'firebase/app';
-import 'firebase/firestore';
 import { HelperService } from '../shared/helper.service';
 import { ViewNotesPage } from './view-notes/view-notes.page';
 import { TimerService } from './timer.service';
 import { Activity } from '../practice-plans/practice-plan.service';
 import * as moment from 'moment';
+import { PresenceService } from './presence.service';
 
 
 @Component({
@@ -18,6 +17,7 @@ export class DrillTimerPage implements OnInit {
   constructor(
     private helper: HelperService,
     private timerService: TimerService,
+    private presence: PresenceService
   ) { }
 
   plan;
@@ -39,8 +39,8 @@ export class DrillTimerPage implements OnInit {
     }, 2000)
   }
 
-  ionViewWillEnter() {
-
+  async ionViewWillEnter() {
+    await this.presence.onlineStatus();
     this.timerService.getNextPlan().then(() => {
       this.interval = setInterval(() => {
         this.timerService.getCurrentActivity();
