@@ -10,6 +10,10 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <h5 class="ion-text-center"> {{ activity.name }}</h5>
-  <p> {{ activity.notes }}</p>
+  <h3 style="color: var(--ion-color-primary)" class="ion-text-center"> {{ activity.name }}</h3>
+  <!-- <p> {{ activity.notes }}</p> -->
+  <ion-card *ngIf="activity.notes" style="background: white">
+    <quill-view-html [content]="activity.notes" theme="snow"></quill-view-html>
+  </ion-card>
+
 </ion-content>

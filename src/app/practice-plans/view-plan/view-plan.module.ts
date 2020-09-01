@@ -7,11 +7,20 @@ import { IonicModule } from '@ionic/angular';
 import { ViewPlanPageRoutingModule } from './view-plan-routing.module';
 
 import { ViewPlanPage } from './view-plan.page';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    QuillModule.forRoot({
+      modules: {
+        toolbar: [
+          ['bold', 'italic', 'clean', 'align', 'underline', 'strike', 'link', 'image', { 'list': 'ordered' }, { 'list': 'bullet' }, 'video', { size: ['normal', 'large'], }, 'clean'],
+
+        ]
+      }
+    }),
     IonicModule,
     ViewPlanPageRoutingModule
   ],

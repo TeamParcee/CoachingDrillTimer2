@@ -12,22 +12,24 @@
     <h3>Name</h3>
     <ion-item-group>
       <ion-item lines="none">
-        <ion-input #name="ngModel" [(ngModel)]="editActivity.name" required name="name"></ion-input>
+        <ion-input  #name="ngModel" [(ngModel)]="editActivity.name" required name="name"></ion-input>
       </ion-item>
     </ion-item-group>
 
     <ion-item-group>
       <h3>Duration (in minutes)</h3>
       <ion-item lines="none">
-        <ion-input #duration="ngModel" type="number" inputmode="number" [(ngModel)]="editActivity.duration" required name="duration"></ion-input>
+        <ion-input name="duration" #duration="ngModel" type="number" inputmode="number" [(ngModel)]="editActivity.duration" required
+          name="duration"></ion-input>
       </ion-item>
     </ion-item-group>
 
     <ion-item-group>
       <h3>Notes</h3>
-      <ion-item lines="none"> 
-        <ion-textarea autoGrow="true" rows="6" #notes="ngModel" [(ngModel)]="editActivity.notes" name="notes"></ion-textarea>
-      </ion-item>
+
+      <!-- <ion-textarea autoGrow="true" rows="6" #notes="ngModel" [(ngModel)]="editActivity.notes" name="notes"></ion-textarea> -->
+      <quill-editor name="notes" [(ngModel)]="editActivity.notes" class="quill"></quill-editor>
+
     </ion-item-group>
   </form>
   <ion-button expand="block" (click)="save()">Save</ion-button>

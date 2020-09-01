@@ -20,6 +20,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
+import { QuillModule } from 'ngx-quill';
 
 var firebaseConfig = {
   apiKey: "AIzaSyA4u44PggAxUKQ0uYqAUDA30H2Vu4qc4FM",
@@ -51,6 +52,14 @@ firebase.analytics();
     BrowserModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
+    QuillModule.forRoot({
+      modules: {
+        toolbar: [
+          ['bold', 'italic', 'clean', 'align', 'underline', 'strike', 'link', 'image', { 'list': 'ordered' }, { 'list': 'bullet' }, 'video', { size: ['normal', 'large'], }, 'clean'],
+
+        ]
+      }
+    }),
     FormsModule,
     AppRoutingModule],
   providers: [
